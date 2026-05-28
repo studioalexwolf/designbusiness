@@ -36,4 +36,4 @@ Gebaut mit [Material Design 3](https://m3.material.io/) — Roboto, Material Sym
 
 ## Wer steckt dahinter
 
-[Studio Alex Wolf](https://alexwolf.studio) — Strategic Product Design, Hamburg.
+[Studio Alex Wolf](https://alexwolf.studio) — Strategic Product Design, Leipzig.
