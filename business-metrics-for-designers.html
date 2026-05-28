@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Metrics — Field Guide für Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* Material Symbols baseline */
+.material-symbols-outlined{
+  font-family:'Material Symbols Outlined';font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+  font-size:20px;line-height:1;display:inline-block;vertical-align:middle;
+  user-select:none;flex-shrink:0
+}
+
+:root{
+  /* ─── MATERIAL DESIGN 3 — Light Scheme ───
+     Primary: Google Blue  |  Tertiary: Green success  |  Error: Coral  */
+
+  /* Primary — Google Blue */
+  --md-primary:#1967D2;
+  --md-on-primary:#FFFFFF;
+  --md-primary-container:#D3E5FF;
+  --md-on-primary-container:#001A43;
+
+  /* Secondary — Blue-grey */
+  --md-secondary:#555F71;
+  --md-on-secondary:#FFFFFF;
+  --md-secondary-container:#D9E3F8;
+  --md-on-secondary-container:#121C2B;
+
+  /* Tertiary — Green (success/retention) */
+  --md-tertiary:#1E6B4F;
+  --md-on-tertiary:#FFFFFF;
+  --md-tertiary-container:#B2F0D4;
+  --md-on-tertiary-container:#002116;
+
+  /* Error — Coral (brand Warum pill) */
+  --md-error:#BA1A1A;
+  --md-on-error:#FFFFFF;
+  --md-error-container:#FFDAD6;
+  --md-on-error-container:#410002;
+
+  /* Surface */
+  --md-surface:#FAFCFF;
+  --md-on-surface:#1A1C1E;
+  --md-surface-variant:#DFE2EB;
+  --md-on-surface-variant:#43474E;
+  --md-surface-container-lowest:#FFFFFF;
+  --md-surface-container-low:#F1F4FB;
+  --md-surface-container:#E9EDF4;
+  --md-surface-container-high:#E3E7EE;
+  --md-outline:#73777F;
+  --md-outline-variant:#C3C7CF;
+
+  /* ─── Brand semantic color tokens — mapped to MD3 container style ─── */
+
+  /* Gold "Was" → Formulas / Revenue */
+  --md-amber:#7C5800;
+  --md-amber-container:#FFDF9E;
+  --md-on-amber-container:#261900;
+
+  /* Lavender "Wie" → Info / Engagement */
+  --md-violet:#5149A0;
+  --md-violet-container:#E5DEFF;
+  --md-on-violet-container:#130065;
+
+  /* Lime "Für Wen" → Success / Retention */
+  --md-green:#466800;
+  --md-green-container:#C8EE6B;
+  --md-on-green-container:#131F00;
+
+  /* Coral "Warum" → Action / CTA / Error */
+  --md-coral:#B33000;
+  --md-coral-container:#FFDBD0;
+  --md-on-coral-container:#3B0800;
+
+  /* ─── MD3 Shape tokens ─── */
+  --shape-xs:4px;
+  --shape-sm:8px;
+  --shape-md:12px;
+  --shape-lg:16px;
+  --shape-xl:28px;
+  --shape-full:100px;
+
+  /* ─── MD3 Elevation ─── */
+  --elev-1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);
+  --elev-2:0 1px 2px rgba(0,0,0,.3),0 2px 6px 2px rgba(0,0,0,.15);
+  --elev-3:0 4px 8px 3px rgba(0,0,0,.15),0 1px 3px rgba(0,0,0,.3);
+
+  /* ─── Typography ─── */
+  --font:'Roboto',system-ui,sans-serif;
+  --mono:'Roboto Mono','Courier New',monospace;
+
+  /* ─── Backwards-compat aliases — used by inline styles in JS templates ─── */
+  --bg:var(--md-surface);
+  --bg-2:var(--md-surface-container-low);
+  --bg-3:var(--md-surface-container);
+  --bg-4:var(--md-surface-container-high);
+  --border:var(--md-outline-variant);
+  --border-mid:var(--md-outline);
+  --text-1:var(--md-on-surface);
+  --text-2:var(--md-on-surface-variant);
+  --text-3:var(--md-on-surface-variant);
+  --text-body:var(--md-on-surface);
+  --accent:var(--md-primary);
+  --accent-bright:var(--md-primary);
+  --accent-dim:var(--md-primary-container);
+  --accent-dim2:rgba(25,103,210,.06);
+  --accent-bg:var(--md-primary-container);
+  --gold:var(--md-amber);
+  --gold-bright:var(--md-amber-container);
+  --gold-bg:var(--md-amber-container);
+  --gold-dim:rgba(124,88,0,.1);
+  --lavender:var(--md-violet);
+  --lavender-bright:var(--md-violet-container);
+  --lavender-bg:var(--md-violet-container);
+  --lavender-dim:rgba(81,73,160,.1);
+  --lime:var(--md-green);
+  --lime-bright:var(--md-green-container);
+  --lime-bg:var(--md-green-container);
+  --lime-dim:rgba(70,104,0,.1);
+  --green:var(--md-primary);
+  --r:var(--shape-md);
+  --r-lg:var(--shape-xl);
+  --r-pill:var(--shape-full);
+  --font-serif:var(--font);
+  --font-sans:var(--font);
+}
+
+html{font-family:var(--font);background:var(--md-surface);color:var(--md-on-surface);font-size:16px;line-height:1.5}
+body{display:flex;min-height:100vh}
+
+/* ─── NAVIGATION DRAWER (MD3) ─── */
+.sidebar{
+  width:20vw;min-width:256px;flex-shrink:0;
+  background:var(--md-surface-container-low);
+  border-right:none;
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100
+}
+.main{margin-left:20vw;flex:1;max-width:860px;padding:48px 56px}
+
+/* Drawer header */
+.sidebar-header{padding:24px 28px 20px;border-bottom:1px solid var(--md-outline-variant)}
+.sidebar-logo{
+  font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--md-on-surface-variant);margin-bottom:4px;
+  display:flex;align-items:center;gap:8px;font-family:var(--font)
+}
+.sidebar-logo .material-symbols-outlined{font-size:16px;color:var(--md-primary)}
+.sidebar-title{font-size:14px;color:var(--md-on-surface);font-weight:400;line-height:1.4;font-family:var(--font)}
+
+/* MD3 Linear Progress Indicator */
+.sidebar-progress{padding:12px 28px 16px;border-bottom:1px solid var(--md-outline-variant)}
+.progress-bar{height:4px;background:var(--md-surface-variant);border-radius:var(--shape-full);overflow:hidden;margin-bottom:8px}
+.progress-fill{height:100%;background:var(--md-primary);border-radius:var(--shape-full);transition:width .4s ease}
+.progress-label{font-size:11px;color:var(--md-on-surface-variant);font-family:var(--mono);letter-spacing:.02em}
+
+/* MD3 Drawer section labels */
+.chapter-group{padding:8px 0}
+.chapter-label{
+  font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--md-on-surface-variant);padding:12px 28px 6px;font-family:var(--font)
+}
+
+/* MD3 Navigation item — 56px, active indicator pill */
+.nav-item{
+  display:flex;align-items:center;gap:12px;
+  min-height:56px;padding:8px 12px;margin:0 12px;
+  cursor:pointer;border-radius:var(--shape-full);
+  transition:background .15s;position:relative
+}
+.nav-item:hover{background:rgba(25,103,210,.08)}
+.nav-item.active{background:var(--md-secondary-container)}
+.nav-item.active .nav-text{color:var(--md-on-secondary-container);font-weight:500}
+.nav-item.active .nav-dot{background:var(--md-primary);width:10px;height:10px}
+.nav-item.done .nav-dot{background:var(--md-tertiary)}
+.nav-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--md-outline-variant);
+  flex-shrink:0;transition:all .2s;border:none
+}
+.nav-dot.active-dot{background:var(--md-primary)}
+.nav-text{font-size:14px;color:var(--md-on-surface-variant);line-height:1.4;font-family:var(--font)}
+.nav-item.done .nav-text{opacity:.65}
+
+/* ─── LESSON HEADER (MD3 type scale) ─── */
+/* Label Large — overline */
+.chapter-tag{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--md-primary);margin-bottom:8px;font-family:var(--font)}
+/* Headline Large 32px */
+.lesson-title{font-size:32px;font-weight:400;letter-spacing:0;line-height:1.25;margin-bottom:8px;color:var(--md-on-surface);font-family:var(--font)}
+/* Body Large */
+.lesson-subtitle{font-size:16px;color:var(--md-on-surface-variant);font-weight:400;margin-bottom:48px;line-height:1.6;max-width:600px;font-family:var(--font)}
+
+/* ─── SECTIONS ─── */
+.section{margin-bottom:48px}
+/* Label Medium overline */
+.section-title{
+  font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--md-on-surface-variant);margin-bottom:16px;
+  padding-bottom:8px;border-bottom:1px solid var(--md-outline-variant);font-family:var(--font)
+}
+p{color:var(--md-on-surface);line-height:1.75;margin-bottom:16px;font-size:15px;font-weight:400;font-family:var(--font)}
+p strong{color:var(--md-on-surface);font-weight:500}
+
+/* ─── METRIC CARDS (MD3 Elevated Card) ─── */
+.metric-card{
+  background:var(--md-surface-container-lowest);
+  border:none;border-radius:var(--shape-xl);
+  padding:24px;margin-bottom:12px;
+  box-shadow:var(--elev-1)
+}
+.metric-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:16px}
+/* Title Large */
+.metric-name{font-size:22px;font-weight:400;color:var(--md-on-surface);margin-bottom:2px;font-family:var(--font)}
+.metric-full-name{font-size:12px;color:var(--md-on-surface-variant);font-family:var(--font)}
+
+/* MD3 Assist Chips */
+.metric-badge{
+  font-size:11px;font-weight:500;letter-spacing:.02em;
+  padding:6px 16px;border-radius:var(--shape-sm);
+  height:32px;display:inline-flex;align-items:center;
+  flex-shrink:0;white-space:nowrap;font-family:var(--font)
+}
+.badge-green,.badge-red,.badge-blue,.badge-amber,.badge-purple{background:var(--md-surface-container-high);color:var(--md-on-surface-variant)}
+
+/* Body Medium */
+.metric-desc{font-size:14px;color:var(--md-on-surface-variant);line-height:1.75;margin-bottom:16px;font-family:var(--font)}
+
+/* ─── FORMULA (MD3 tinted container) ─── */
+.formula-block{
+  background:var(--md-amber-container);
+  border:none;border-radius:var(--shape-md);
+  padding:16px 20px;margin-bottom:16px
+}
+.formula-label{font-size:11px;color:var(--md-amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-weight:500;font-family:var(--font)}
+.formula-text{font-family:var(--mono);font-size:13px;color:var(--md-on-amber-container);line-height:1.7;font-weight:400}
+
+/* ─── DESIGN LINK (MD3 Primary Container) ─── */
+.design-link{
+  background:var(--md-primary-container);
+  border:none;border-radius:var(--shape-md);
+  padding:16px 20px;font-size:14px;color:var(--md-on-primary-container);line-height:1.75;font-family:var(--font)
+}
+.design-link-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--md-primary);margin-bottom:8px;font-family:var(--font)}
+
+/* ─── EXAMPLE BLOCK (MD3 Surface Container) ─── */
+.example-block{
+  background:var(--md-surface-container);
+  border:none;border-radius:var(--shape-xl);
+  padding:24px;margin-bottom:24px
+}
+.example-label{font-size:11px;color:var(--md-on-surface-variant);text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;font-weight:500;font-family:var(--font)}
+.example-scenario{font-size:14px;color:var(--md-on-surface-variant);margin-bottom:16px;line-height:1.75;font-family:var(--font)}
+.example-numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+/* MD3 number stat cards */
+.example-num{background:var(--md-surface-container-lowest);border-radius:var(--shape-lg);padding:20px 12px;text-align:center;box-shadow:var(--elev-1)}
+/* Display Medium — big numbers */
+.example-num-val{font-family:var(--font);font-size:40px;font-weight:400;color:var(--md-primary);margin-bottom:4px;line-height:1;letter-spacing:-.01em}
+.example-num-label{font-size:11px;color:var(--md-on-surface-variant);font-family:var(--font);letter-spacing:.02em}
+
+/* ─── CALLOUTS (MD3 tinted containers) ─── */
+.callout{border-radius:var(--shape-md);padding:16px 20px;margin-bottom:16px;font-size:14px;line-height:1.75;font-family:var(--font)}
+.callout-info{background:var(--md-violet-container);color:var(--md-on-violet-container)}
+.callout-warn{background:var(--md-coral-container);color:var(--md-on-coral-container)}
+.callout strong{font-weight:500}
+
+/* ─── CHEAT SHEET ─── */
+.cheatsheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cs-item{background:var(--md-surface-container-lowest);border:none;border-radius:var(--shape-lg);padding:16px;box-shadow:var(--elev-1)}
+.cs-abbr{font-family:var(--mono);font-size:14px;color:var(--md-primary);font-weight:500;margin-bottom:4px}
+.cs-name{font-size:11px;color:var(--md-on-surface-variant);margin-bottom:8px;font-family:var(--font)}
+.cs-formula{font-family:var(--mono);font-size:11px;color:var(--md-on-surface-variant);line-height:1.5}
+
+/* ─── TEST BLOCK (MD3 Elevated Card with primary header) ─── */
+.test-block{margin-top:48px;border:none;border-radius:var(--shape-xl);overflow:hidden;box-shadow:var(--elev-2)}
+.test-header{background:var(--md-primary);padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.test-header-left{display:flex;align-items:center;gap:16px}
+.test-icon{
+  width:40px;height:40px;border-radius:var(--shape-md);
+  background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0
+}
+.test-icon .material-symbols-outlined{font-size:20px;color:#fff}
+.test-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.test-title{font-size:14px;font-weight:500;color:#fff;font-family:var(--font);letter-spacing:.01em}
+.test-meta{font-size:11px;color:rgba(255,255,255,.7);font-family:var(--mono)}
+/* MD3-style progress pill indicators */
+.test-progress-dots{display:flex;gap:6px;align-items:center}
+.tdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);transition:all .25s}
+.tdot.current{background:#fff;width:24px;border-radius:var(--shape-full)}
+.tdot.t-correct{background:var(--md-tertiary-container)}
+.tdot.t-wrong{background:var(--md-error-container)}
+.test-body{padding:32px 24px;background:var(--md-surface-container-lowest)}
+/* Label */
+.tq-type{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--md-primary);margin-bottom:4px;font-family:var(--font)}
+.tq-number{font-size:12px;color:var(--md-on-surface-variant);font-family:var(--mono);margin-bottom:16px}
+/* Title Large */
+.tq-question{font-size:22px;font-weight:400;color:var(--md-on-surface);margin-bottom:24px;line-height:1.4;font-family:var(--font)}
+.tq-scenario{
+  background:var(--md-amber-container);border:none;border-radius:var(--shape-md);
+  padding:16px 20px;margin-bottom:16px;
+  font-size:13px;color:var(--md-on-amber-container);font-family:var(--mono);line-height:1.6
+}
+.tq-options{display:flex;flex-direction:column;gap:8px}
+/* MD3 List-tile option */
+.tq-option{
+  background:var(--md-surface-container-low);
+  border:1px solid var(--md-outline-variant);
+  border-radius:var(--shape-md);
+  padding:16px;font-size:14px;color:var(--md-on-surface);
+  cursor:pointer;transition:all .15s;text-align:left;
+  font-family:var(--font);width:100%;line-height:1.5
+}
+.tq-option:hover:not(.disabled){background:var(--md-primary-container);border-color:var(--md-primary);color:var(--md-on-primary-container)}
+.tq-option.t-correct{background:var(--md-tertiary-container);border-color:var(--md-tertiary);color:var(--md-on-tertiary-container)}
+.tq-option.t-wrong{background:var(--md-error-container);border-color:var(--md-error);color:var(--md-on-error-container)}
+.tq-option.t-reveal{background:var(--md-tertiary-container);border-color:var(--md-tertiary);color:var(--md-on-tertiary-container);opacity:.6}
+.tq-option.disabled{pointer-events:none}
+.tq-feedback{
+  margin-top:16px;padding:16px 20px;
+  border-radius:var(--shape-md);
+  font-size:14px;color:var(--md-on-surface);line-height:1.75;display:none;font-family:var(--font)
+}
+.tq-feedback.show{display:block}
+.tq-feedback.fb-ok{background:var(--md-tertiary-container);color:var(--md-on-tertiary-container)}
+.tq-feedback.fb-no{background:var(--md-error-container);color:var(--md-on-error-container)}
+.tq-nav{display:flex;justify-content:flex-end;margin-top:24px}
+/* MD3 Tonal Button */
+.tq-next{
+  background:var(--md-secondary-container);border:none;
+  border-radius:var(--shape-full);
+  padding:10px 24px;font-size:14px;font-weight:500;
+  color:var(--md-on-secondary-container);cursor:pointer;
+  font-family:var(--font);transition:all .15s;display:none
+}
+.tq-next:hover{background:var(--md-primary);color:var(--md-on-primary)}
+.tq-next.show{display:block}
+
+/* ─── RESULT ─── */
+.test-result{display:none;padding:40px 24px;text-align:center;background:var(--md-surface-container-lowest)}
+.test-result.show{display:block;animation:fadeIn .3s ease}
+.result-ring{width:88px;height:88px;margin:0 auto 32px;position:relative}
+.result-ring svg{transform:rotate(-90deg)}
+.ring-bg{stroke:var(--md-surface-container-high);fill:none;stroke-width:6}
+.ring-fg{fill:none;stroke-width:6;stroke-linecap:round;stroke-dasharray:220;transition:stroke-dashoffset 1.2s ease}
+.ring-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font);font-size:18px;font-weight:500;color:var(--md-on-surface)}
+/* Headline Medium */
+.result-headline{font-size:28px;font-weight:400;color:var(--md-on-surface);margin-bottom:8px;font-family:var(--font)}
+.result-sub{font-size:14px;color:var(--md-on-surface-variant);margin-bottom:32px;font-family:var(--font)}
+.result-breakdown{display:grid;gap:8px;text-align:left;margin-bottom:32px}
+.rb-item{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--md-surface-container-low);border-radius:var(--shape-md);font-size:13px}
+.rb-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;margin-top:1px}
+.rb-ok{background:var(--md-tertiary-container);color:var(--md-on-tertiary-container)}
+.rb-no{background:var(--md-error-container);color:var(--md-on-error-container)}
+.rb-text{flex:1;color:var(--md-on-surface-variant);line-height:1.6;font-family:var(--font)}
+.rb-text b{color:var(--md-on-surface);display:block;margin-bottom:4px;font-weight:500}
+.result-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+
+/* ─── BUTTONS (MD3) ─── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 24px;border-radius:var(--shape-full);
+  font-family:var(--font);font-size:14px;font-weight:500;
+  letter-spacing:.01em;cursor:pointer;transition:all .15s;border:none
+}
+/* MD3 Outlined Button */
+.btn-ghost{background:transparent;color:var(--md-primary);border:1px solid var(--md-outline)}
+.btn-ghost:hover{background:rgba(25,103,210,.08);border-color:var(--md-primary)}
+/* MD3 Filled Button */
+.btn-primary{background:var(--md-primary);color:var(--md-on-primary)}
+.btn-primary:hover{background:#1558C0;box-shadow:var(--elev-1)}
+.btn-sm{padding:8px 16px;font-size:13px}
+.btn:disabled{opacity:.38;cursor:not-allowed;pointer-events:none}
+
+/* ─── NAV BOTTOM ─── */
+.nav-buttons{display:flex;justify-content:space-between;align-items:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--md-outline-variant)}
+.lesson-counter{font-size:12px;color:var(--md-on-surface-variant);font-family:var(--mono);letter-spacing:.02em}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--md-outline-variant);border-radius:var(--shape-full)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:720px){.sidebar{display:none}.main{margin-left:0;padding:24px 16px}.cheatsheet-grid{grid-template-columns:1fr}}
+
+/* ─── ANIMATION ─── */
+.lesson-content{animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo"><span class="material-symbols-outlined">menu_book</span>Field Guide</div>
+    <div class="sidebar-title">Business Metrics für Designer</div>
+  </div>
+  <div class="sidebar-progress">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-label" id="progress-label">0 / 8 abgeschlossen</div>
+  </div>
+  <nav id="sidebar-nav"></nav>
+</aside>
+<main class="main" id="main-content"></main>
+<script>
+const L = [
+  {
+    ch:"Fundament",id:"intro",
+    title:"Warum Designer Business Metrics kennen müssen",
+    sub:"Design ohne Kontext ist Dekoration. Wer Zahlen versteht, argumentiert anders.",
+    body:()=>`
+      <div class="section"><p><strong>Das Problem:</strong> Designer pitchen Entscheidungen oft ästhetisch. "Das sieht besser aus." Richtig, aber unvollständig im Business-Kontext.</p><p>Product Manager und Stakeholder denken in Metriken. Wenn du ihre Sprache sprichst, wirst du nicht mehr überstimmt.</p><p>Du beeinflusst fast jede wichtige Business-Metrik direkt: Onboarding-Flow verbessert Activation Rate. Klare Navigation verbessert Feature Adoption. Bessere Empty States reduzieren Churn.</p><div class="callout callout-info"><strong>Wie du am meisten rausholst:</strong> Geh die Lektionen der Reihe nach durch. Jede endet mit einem Test — 80%+ zum Abschließen.</div></div>
+      <div class="section"><div class="section-title">Die 4 Metrik-Kategorien</div><div style="display:grid;gap:10px">
+        ${[["Conversion &amp; Funnel","Wo verliere ich Nutzer?","badge-amber","Funnel"],["Retention &amp; Engagement","Kommen sie wieder?","badge-blue","Retention"],["Revenue-Metriken","Was verdiene ich wirklich?","badge-green","Revenue"],["Kosten-Metriken","Was kostet mich ein Nutzer?","badge-purple","Kosten"]].map(([t,d,b,l])=>`<div class="metric-card" style="margin-bottom:0"><div class="metric-card-header"><div><div class="metric-name">${t}</div><div class="metric-full-name">${d}</div></div><span class="metric-badge ${b}">${l}</span></div></div>`).join('')}
+      </div></div>`,
+    tests:[
+      {type:"Begriff",q:"Was ist der Kern-Vorteil wenn Designer Business Metrics kennen?",opts:["PM-Aufgaben übernehmen","Design-Entscheidungen mit messbaren Business-Auswirkungen verbinden","Mehr Budget bekommen","Keine User Research mehr nötig"],c:1,fb:"Genau. Design beeinflusst messbar Activation Rate, Churn und MRR. Das ist das Argument das zählt."},
+      {type:"Zuordnung",q:"Eine Feature Adoption Rate von 8% deutet auf welches Design-Problem hin?",opts:["Zu viele Farben","Das Feature ist schwer zu finden — Discovery-Problem","Feature wurde falsch priorisiert","Loading-Times zu lang"],c:1,fb:"Richtig. Niedrige Feature Adoption = User wissen nicht dass das Feature existiert, oder der Weg dahin ist unklar. Navigation, IA, Empty States."},
+      {type:"Auswirkung",q:"Du verbesserst das Onboarding sodass 20% mehr User aktiviert werden. Was passiert mit dem effektiven CAC?",opts:["CAC steigt, Onboarding wird teurer","CAC bleibt gleich, Marketing unverändert","CAC sinkt effektiv — mehr Aktivierungen aus gleichem Ad-Spend","CAC hat nichts mit Onboarding zu tun"],c:2,fb:"Genau. CAC = Spend / aktivierte User. Mehr Aktivierungen bei gleichem Spend = niedrigerer effektiver CAC."},
+      {type:"Kontext",q:"Welche Metrik-Kategorie ist am direktesten für Churn-Probleme verantwortlich?",opts:["Conversion &amp; Funnel","Revenue-Metriken","Retention &amp; Engagement","Kosten-Metriken"],c:2,fb:"Richtig. Churn ist eine Retention-Metrik. Retention &amp; Engagement zeigt ob User nach dem Onboarding zurückkommen."}
+    ]
+  },
+  {
+    ch:"Conversion &amp; Funnel",id:"cr",
+    title:"Conversion Rate",
+    sub:"Die Grundmetrik. Wie viel Prozent der Nutzer machen, was du dir wünschst.",
+    body:()=>`
+      <div class="section"><div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">Conversion Rate</div><div class="metric-full-name">CR</div></div><span class="metric-badge badge-amber">Conversion</span></div><div class="metric-desc">Prozentsatz der Nutzer die eine gewünschte Aktion durchführen. Gilt für jede Funnel-Stufe: Signup, Onboarding, Upgrade.</div><div class="formula-block"><div class="formula-label">Formel</div><div class="formula-text">CR = (Conversions / Besucher) × 100</div></div><div class="design-link"><div class="design-link-label">Design-Hebel</div>Jede Friction reduziert Conversion: CTA-Klarheit, Formular-Länge, visuelle Hierarchie, Copy.</div></div></div>
+      <div class="section"><div class="section-title">Funnel-Beispiel</div><div class="example-block"><div class="example-label">SaaS Signup Funnel</div><div class="example-numbers"><div class="example-num"><div class="example-num-val">1.000</div><div class="example-num-label">Landing Page</div></div><div class="example-num"><div class="example-num-val">320</div><div class="example-num-label">Signup (32%)</div></div><div class="example-num"><div class="example-num-val">240</div><div class="example-num-label">Email ok (75%)</div></div><div class="example-num"><div class="example-num-val">160</div><div class="example-num-label">Onboarding (67%)</div></div><div class="example-num"><div class="example-num-val">96</div><div class="example-num-label">Aktiviert (60%)</div></div></div></div><p>Gesamt-CR: <strong>9,6%</strong>. Größter Drop: Landing Page → Signup (32%). <strong>Dort liegt das Design-Problem.</strong></p></div>
+      <div class="section"><div class="section-title">Benchmarks</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${[["E-Commerce","2–4%"],["SaaS Free Trial","15–25%"],["SaaS Signup","30–50%"],["Email → Click","2–5%"]].map(([t,v])=>`<div style="background:var(--bg-3);border-radius:var(--r);padding:16px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--text-3);margin-bottom:8px;font-style:italic">${t}</div><div style="font-family:var(--mono);font-size:18px;color:var(--accent);font-weight:500;margin-bottom:4px">${v}</div><div style="font-size:11px;color:var(--text-3)">gilt als gut</div></div>`).join('')}</div></div>`,
+    tests:[
+      {type:"Rechnung",q:"1.200 Besucher. 54 Käufe. Was ist die Conversion Rate?",sc:"Besucher: 1.200 | Käufe: 54",opts:["3,5%","4,5%","5,0%","6,0%"],c:1,fb:"Richtig. 54/1.200×100 = 4,5%. Solide für E-Commerce (Benchmark: 2–4% Durchschnitt)."},
+      {type:"Analyse",q:"68% Drop-off zwischen Formular-Step und Bestätigungsseite. Wahrscheinlichster Design-Grund?",opts:["Falsches Farbschema","Formular hat zu viele Felder oder unklare Struktur","CTA-Button zu klein","Seite lädt langsam"],c:1,fb:"Genau. Hohe Drop-off auf Formular = Friction: zu viele Felder, unklare Labels, fehlende Inline-Validierung, Vertrauensprobleme."},
+      {type:"Impact",q:"CR auf Pricing-Seite: 8% → 12% nach Layout-Vereinfachung. 500 Besucher/Mo. Wie viele Conversions mehr?",sc:"Besucher: 500/Mo | Vorher: 8% | Nachher: 12%",opts:["10 mehr","15 mehr","20 mehr","25 mehr"],c:2,fb:"Richtig. Vorher: 40. Nachher: 60. +20 Conversions. Bei €50/Conversion = €1.000 mehr MRR — aus einem Layout-Fix."},
+      {type:"Begriff",q:"Warum ist die Gesamt-CR (Landing Page → Aktivierung) oft irreführend?",opts:["Zu schwer zu berechnen","Verbirgt wo genau User abspringen — Step-CR zeigt das Problem","Nicht vergleichbar mit anderen Produkten","Berücksichtigt keine Mobile-User"],c:1,fb:"Genau. Eine Gesamt-CR von 9% sagt nichts darüber ob das Problem auf der Landing Page, im Formular oder im Onboarding liegt."},
+      {type:"Hebel",q:"Welcher Eingriff hat den direktesten Einfluss auf Conversion Rate?",opts:["Neue Illustrationen im Hero","Formular-Felder von 8 auf 3 reduzieren","Bessere 404-Seite","Dark Mode einführen"],c:1,fb:"Richtig. Weniger Felder = weniger Friction = direkter CR-Impact. Einer der konsistentesten Hebel in A/B-Test-Studien."}
+    ]
+  },
+  {
+    ch:"Conversion &amp; Funnel",id:"activation",
+    title:"Activation Rate &amp; Time-to-Value",
+    sub:"Der Moment wo ein Nutzer den ersten echten Wert erlebt. Dein wichtigster Onboarding-KPI.",
+    body:()=>`
+      <div class="section"><div style="display:grid;gap:12px">
+        <div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">Activation Rate</div><div class="metric-full-name">Anteil der User die den Aha-Moment erreichen</div></div><span class="metric-badge badge-amber">Conversion</span></div><div class="metric-desc">Prozentsatz der signierten Nutzer die eine definierte Key Action ausführen.</div><div class="formula-block"><div class="formula-label">Formel</div><div class="formula-text">Activation Rate = (Aktivierte User / Registrierte User) × 100</div></div></div>
+        <div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">Time-to-Value</div><div class="metric-full-name">TTV — Wie lange bis zum ersten Wert</div></div><span class="metric-badge badge-blue">Engagement</span></div><div class="metric-desc">Zeit von Registrierung bis zum ersten Moment wo der Nutzer den Produktwert erlebt. Kürzer ist besser.</div><div class="formula-block"><div class="formula-label">Messung</div><div class="formula-text">Ø Minuten/Stunden/Tage von Signup → erste Key Action</div></div><div class="design-link"><div class="design-link-label">Design-Hebel</div>Empty States, Onboarding-Flows, progressive Disclosure, Inline-Guidance.</div></div>
+      </div></div>
+      <div class="section"><div class="section-title">Key Action Beispiele</div><div style="display:grid;gap:8px">${[["Slack","Erste Nachricht gesendet","User kommuniziert"],["Figma","Erstes Frame erstellt","Core-Tool verstanden"],["Notion","Erste Page angelegt","Eigener Content"],["Spotify","5 Songs geliked","Algorithmus startet"],["GitHub","Erstes Commit","Developer-Wert"]].map(([p,a,w])=>`<div style="display:flex;align-items:flex-start;gap:16px;background:var(--bg-3);border-radius:var(--r);padding:16px;border:1px solid var(--border)"><div style="font-weight:700;font-size:13px;color:var(--text-1);width:72px;flex-shrink:0">${p}</div><div><div style="font-size:13px;color:var(--accent);font-family:var(--mono);margin-bottom:4px">${a}</div><div style="font-size:12px;color:var(--text-3);font-style:italic">${w}</div></div></div>`).join('')}</div></div>
+      <div class="section"><div class="callout callout-warn"><strong>Argument-Template:</strong> "Wenn wir Onboarding-Schritt 3 vereinfachen, sinkt TTV von 4 Stunden auf 30 Minuten. Bei 20% Activation Rate und 500 Signups/Mo bedeutet jeder Prozentpunkt 5 zusätzliche aktivierte Nutzer mit Ø LTV von X €."</div></div>`,
+    tests:[
+      {type:"Rechnung",q:"600 User registrieren sich. 138 führen die Key Action durch. Activation Rate?",sc:"Registriert: 600 | Key Action: 138",opts:["20%","21%","23%","25%"],c:2,fb:"Richtig. 138/600×100 = 23%. Unter 25% bei SaaS gilt als verbesserungswürdig. Ziel: 40%+."},
+      {type:"Begriff",q:"Was misst Time-to-Value (TTV) konkret?",opts:["Ladezeit der App","Dauer bis erste Zahlung","Zeit von Signup bis erste Key Action (Produktwert erlebt)","Tägliche Nutzungsdauer"],c:2,fb:"Genau. TTV = Signup → erste bedeutsame Aktion. Kürzer = User sind schneller invested und droppen weniger."},
+      {type:"Auswirkung",q:"TTV sinkt von 3 Tagen auf 2 Stunden. Wahrscheinlichste Konsequenz?",opts:["Höhere Churn Rate","Höhere Day-1 Retention — User sehen früher den Wert","Niedrigerer MRR","Keine Änderung"],c:1,fb:"Richtig. Je schneller Wert erlebt wird, desto wahrscheinlicher kommt der User zurück. Day-1 Retention ist stark mit TTV korreliert."},
+      {type:"Analyse",q:"Signup-to-Activation Rate: 18%. Ersten Design-Bereich untersuchen?",opts:["Farbpalette","Onboarding-Flow und Empty States — was sieht ein neuer User?","Pricing-Seite","Mobile Responsiveness"],c:1,fb:"Genau. Niedrige Activation = User sehen keinen Wert schnell genug. Was passiert zwischen Signup und Key Action? Empty States die nichts zeigen, zu viele Setup-Schritte."},
+      {type:"Kontext",q:"Figmas Key Action ist 'Erstes Frame erstellt'. Warum ist das eine gute Definition?",opts:["Technische Aktion","Zeigt dass User das Core-Tool verstanden und genutzt hat — echter Produktwert","Einfach zu messen","Häufigste Aktion"],c:1,fb:"Richtig. Key Action muss zeigen dass der User den Kern-Value erlebt hat. Account anlegen wäre keine gute Key Action — da ist noch kein Wert erlebt."}
+    ]
+  },
+  {
+    ch:"Retention &amp; Engagement",id:"retention",
+    title:"Retention Rate &amp; Churn",
+    sub:"Ohne Retention ist jedes Wachstum ein löchriger Eimer. Die kritischste Langzeit-Metrik.",
+    body:()=>`
+      <div class="section"><div style="display:grid;gap:12px">
+        <div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">Retention Rate</div><div class="metric-full-name">Wie viele User bleiben?</div></div><span class="metric-badge badge-green">Retention</span></div><div class="metric-desc">Prozentsatz der Nutzer die nach einer Zeitperiode noch aktiv sind. Day-1, Day-7, Day-30.</div><div class="formula-block"><div class="formula-label">Formel</div><div class="formula-text">Retention = ((User Ende - neue User) / User Start) × 100</div></div></div>
+        <div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">Churn Rate</div><div class="metric-full-name">Wie viele verlassen das Produkt?</div></div><span class="metric-badge badge-red">Kritisch</span></div><div class="metric-desc">Prozentsatz der User die verloren gehen. Churn + Retention = 100%.</div><div class="formula-block"><div class="formula-label">Formel</div><div class="formula-text">Churn Rate = (verlorene User / User Start) × 100</div></div><div class="design-link"><div class="design-link-label">Design-Hebel</div>Hoher Churn: Empty States ohne Wert, fehlende Habit-Loops, schwache Notifications.</div></div>
+      </div></div>
+      <div class="section"><div class="section-title">Warum 5% Churn brutal ist</div><div class="example-block"><div class="example-label">Simulation — 5% monatlicher Churn, kein Wachstum</div><div class="example-numbers">${[["Mo 0","1.000"],["Mo 6","735"],["Mo 12","540"],["Mo 24","292"]].map(([m,v])=>`<div class="example-num"><div class="example-num-val">${v}</div><div class="example-num-label">${m}</div></div>`).join('')}</div></div><p>Nach 2 Jahren nur noch 29% der ursprünglichen Basis. Massiv neue User nötig nur um stagnant zu bleiben.</p><div class="callout callout-info"><strong>Faustregeln:</strong> SaaS B2B unter 2%/Mo gut. B2C unter 5% ok. Über 8% kritisch.</div></div>
+      <div class="section"><div class="section-title">Day-X Retention</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">${[["Day 1","40%+","Schlechtes Onboarding?"],["Day 7","20%+","Kein Habit Loop?"],["Day 30","10%+","Falscher User?"]].map(([d,v,f])=>`<div style="background:var(--bg-3);border-radius:var(--r);padding:16px;border:1px solid var(--border);text-align:center"><div style="font-size:11px;color:var(--text-3);margin-bottom:8px;font-style:italic">${d} Retention</div><div style="font-family:var(--mono);font-size:22px;color:var(--green);margin-bottom:8px">${v}</div><div style="font-size:11px;color:var(--text-3);border-top:1px solid var(--border);padding-top:8px">darunter: ${f}</div></div>`).join('')}</div></div>`,
+    tests:[
+      {type:"Rechnung",q:"Start: 1.200 User. 72 kündigen. Churn Rate und Retention Rate?",sc:"Start: 1.200 | Gekündigt: 72",opts:["Churn 5%, Retention 95%","Churn 6%, Retention 94%","Churn 6%, Retention 93%","Churn 5%, Retention 94%"],c:1,fb:"Richtig. Churn = 72/1.200×100 = 6%. Retention = 100−6 = 94%. Churn + Retention = immer 100%."},
+      {type:"Rechnung",q:"3% monatlicher Churn. 1.000 Start-User. Was ist nach 12 Monaten realistisch übrig?",sc:"Churn: 3%/Mo | Start: 1.000 User",opts:["~600","~700","~800","~900"],c:1,fb:"Richtig. 1.000 × 0,97^12 ≈ 694. Klingt okay, aber: ohne Wachstum verlierst du fast ein Drittel in einem Jahr."},
+      {type:"Analyse",q:"Day-7 Retention: 12% bei Day-1 Retention: 45%. Was zeigt das?",opts:["Onboarding ist schlecht","Produkt schafft keinen Habit — User kommen einmal, dann nie wieder","Technische Probleme","Falsche Zielgruppe"],c:1,fb:"Genau. Gutes Onboarding (Day-1) aber kein Habit (Day-7). Design-Hebel: Push Notifications, Email-Sequenzen, Streak-Mechaniken, wiederkehrende Wert-Momente."},
+      {type:"Begriff",q:"Was unterscheidet User Churn von Revenue Churn?",opts:["Kein Unterschied","User Churn zählt verlorene Accounts, Revenue Churn verlorenes MRR — Upgrade-User können User-Churn maskieren","Revenue Churn ist immer höher","User Churn wichtiger für SaaS"],c:1,fb:"Richtig. 10% User Churn von Billig-Usern kann Revenue Churn von 3% sein. Oder 5% User Churn von Enterprise-Kunden = 20% Revenue Churn. Immer beide tracken."},
+      {type:"Hebel",q:"Welches Design-Pattern adressiert niedrige Day-30 Retention am direktesten?",opts:["Besserer Hero auf Landing Page","Habit-Loops: wiederkehrende Wert-Momente die User wöchentlich zurückbringen","Schnellerer Checkout","Bessere Fehlerseiten"],c:1,fb:"Genau. Day-30 ist Product-Market-Fit-Signal. Design: Habit-Loops, Notification-Strategie, Weekly Digest, Streaks, neue Inhalte als Grund zurückzukommen."}
+    ]
+  },
+  {
+    ch:"Revenue-Metriken",id:"mrr",
+    title:"MRR, ARR &amp; Revenue-Wachstum",
+    sub:"Die Kernzahlen jedes SaaS-Unternehmens.",
+    body:()=>`
+      <div class="section"><div style="display:grid;gap:12px">${[["MRR","Monthly Recurring Revenue","Monatlich wiederkehrender Umsatz. Die wichtigste operative SaaS-Zahl.","MRR = Σ aktive Subs × Monatspreis","green"],["ARR","Annual Recurring Revenue","Annualisierter MRR für Investoren und Jahresberichte.","ARR = MRR × 12","blue"]].map(([n,f,d,formula,c])=>`<div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">${n}</div><div class="metric-full-name">${f}</div></div><span class="metric-badge badge-${c}">Revenue</span></div><div class="metric-desc">${d}</div><div class="formula-block"><div class="formula-label">Formel</div><div class="formula-text">${formula}</div></div></div>`).join('')}</div></div>
+      <div class="section"><div class="section-title">Die 4 MRR-Bewegungen</div><div style="display:grid;gap:8px">${[["New MRR","Neue Kunden","badge-green","MRR von neu signierten Usern"],["Expansion MRR","Upgrades","badge-blue","Bestehende wechseln auf teureren Plan"],["Contraction MRR","Downgrades","badge-amber","Bestehende wechseln auf günstigeren Plan"],["Churned MRR","Kündigungen","badge-red","MRR von gekündigten Usern"]].map(([n,t,b,d])=>`<div style="display:flex;align-items:flex-start;gap:16px;background:var(--bg-3);border-radius:var(--r);padding:16px;border:1px solid var(--border)"><div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px;font-weight:700;color:var(--text-1)">${n}</span><span class="metric-badge ${b}" style="font-size:9px">${t}</span></div><div style="font-size:12px;color:var(--text-3);font-style:italic">${d}</div></div></div>`).join('')}<div class="formula-block" style="margin-top:16px"><div class="formula-label">Netto-MRR-Wachstum</div><div class="formula-text">Net New MRR = New + Expansion − Contraction − Churned</div></div></div></div>
+      <div class="section"><div class="design-link"><div class="design-link-label">Design-Hebel</div>Expansion MRR kommt durch Feature-Discovery. Wenn User nicht wissen dass ein Premium-Feature existiert, upgraden sie nicht. Upgrade-Prompts, Feature-Gates, "locked" Indikatoren.</div></div>`,
+    tests:[
+      {type:"Rechnung",q:"300 User auf €19/Mo, 80 auf €49/Mo, 20 auf €149/Mo. Was ist der MRR?",sc:"Basic 300×€19 | Pro 80×€49 | Enterprise 20×€149",opts:["€10.600","€11.600","€12.600","€9.600"],c:2,fb:"Richtig. (300×19)+(80×49)+(20×149) = 5.700+3.920+2.980 = 12.600 €. ARR = 12.600×12 = 151.200 €."},
+      {type:"Begriff",q:"Was ist Expansion MRR?",opts:["MRR von neuen Kunden","Zusatz-MRR von bestehenden Kunden die auf teureren Plan wechseln","MRR das durch Kündigungen verloren geht","Gesamt-MRR ×12"],c:1,fb:"Richtig. Expansion MRR = Revenue-Wachstum ohne neue Kunden. Durch Upgrades bestehender User. Oft günstiger als New MRR, weil kein neuer CAC anfällt."},
+      {type:"Auswirkung",q:"Du redesignst die Plan-Übersicht und machst Premium-Features sichtbarer. Welche MRR-Bewegung beeinflusst das direkt?",opts:["New MRR","Churned MRR","Expansion MRR","Contraction MRR"],c:2,fb:"Genau. Bessere Feature-Discovery → User sehen was sie bekommen könnten → mehr Upgrades → Expansion MRR steigt. Direkter Design-Hebel auf Revenue."},
+      {type:"Rechnung",q:"Start MRR €50.000. New +€4.000. Expansion +€2.500. Contraction −€800. Churned −€1.200. MRR am Monatsende?",sc:"Start: €50.000 | +New €4.000 | +Exp €2.500 | −Con €800 | −Ch €1.200",opts:["€54.500","€55.500","€53.500","€56.500"],c:0,fb:"Richtig. 50.000+4.000+2.500−800−1.200 = 54.500 €. Net New MRR = +4.500 €. Das Business wächst, aber Churn frisst fast die Hälfte des neuen Revenues."},
+      {type:"Rechnung",q:"ARR = €180.000. Was ist der monatliche MRR?",sc:"ARR: €180.000",opts:["€15.000","€18.000","€20.000","€22.500"],c:0,fb:"Richtig. MRR = ARR/12 = 180.000/12 = 15.000 €. ARR für Investoren-Kommunikation, MRR für operativen Alltag."}
+    ]
+  },
+  {
+    ch:"Revenue-Metriken",id:"ltvcac",
+    title:"LTV und CAC — die wichtigste Ratio",
+    sub:"Lifetime Value gegen Customer Acquisition Cost. Diese Ratio entscheidet ob ein Business skalierbar ist.",
+    body:()=>`
+      <div class="section"><div style="display:grid;gap:12px">${[["LTV","Lifetime Value","Gesamter Umsatz den ein Kunde über seine aktive Zeit generiert.","LTV = Ø MRR × Ø Lifetime in Monaten   oder: LTV = Ø MRR / Churn Rate","green"],["CAC","Customer Acquisition Cost","Durchschnittliche Kosten um einen neuen Kunden zu gewinnen.","CAC = Akquisitions-Ausgaben / Anzahl neuer Kunden","purple"]].map(([n,f,d,formula,c])=>`<div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">${n}</div><div class="metric-full-name">${f}</div></div><span class="metric-badge badge-${c}">Revenue</span></div><div class="metric-desc">${d}</div><div class="formula-block"><div class="formula-label">Formel</div><div class="formula-text">${formula}</div></div></div>`).join('')}</div></div>
+      <div class="section"><div class="section-title">LTV:CAC Ratio</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">${[["Unter 1:1","Kritisch","Geld verloren pro Kunde","badge-red"],["1:1 – 3:1","Grenzwertig","Wenig Marge","badge-amber"],["3:1+","Gesund","Skalierbar","badge-green"]].map(([r,l,d,b])=>`<div style="background:var(--bg-3);border-radius:var(--r);padding:16px;border:1px solid var(--border);text-align:center"><div style="font-family:var(--mono);font-size:14px;font-weight:500;color:var(--text-1);margin-bottom:8px">${r}</div><span class="metric-badge ${b}" style="font-size:9px">${l}</span><div style="font-size:11px;color:var(--text-3);margin-top:8px;font-style:italic">${d}</div></div>`).join('')}</div><div class="callout callout-info"><strong>CAC Payback:</strong> CAC / MRR = Monate bis Break-Even. Unter 12 Monate gut. Über 18 Warnsignal.</div></div>
+      <div class="section"><div class="design-link"><div class="design-link-label">Argument in Meetings</div>"Verbesserung Onboarding von 35% auf 50% Activation Rate verbessert effektiv den LTV weil mehr User den Wert erleben und länger bleiben — LTV:CAC Ratio steigt von 2,1 auf ~2,8."</div></div>`,
+    tests:[
+      {type:"Rechnung",q:"Ø MRR: €25. Durchschnittliche Laufzeit: 18 Monate. Was ist der LTV?",sc:"Ø MRR: €25 | Ø Lifetime: 18 Monate",opts:["€350","€400","€450","€500"],c:2,fb:"Richtig. LTV = 25×18 = 450 €. Alternativ via Churn: bei 5,6% Churn/Mo → LTV = 25/0,056 ≈ 450 €."},
+      {type:"Rechnung",q:"CAC = €90. MRR pro User = €30. Wie viele Monate bis CAC Payback?",sc:"CAC: €90 | MRR/User: €30/Mo",opts:["2 Monate","3 Monate","4 Monate","6 Monate"],c:1,fb:"Richtig. Payback = 90/30 = 3 Monate. Ausgezeichnet — unter 12 Monate ist gut. Nach Monat 3 ist jeder Euro Gewinn."},
+      {type:"Analyse",q:"LTV = €300, CAC = €150. Ratio und Einschätzung?",sc:"LTV: €300 | CAC: €150",opts:["1:1 — nicht skalierbar","2:1 — grenzwertig, kaum Marge","3:1 — solide","4:1 — sehr gut"],c:1,fb:"Richtig. 300/150 = 2:1. Grenzwertig — das Business macht Gewinn, aber zu wenig Marge für schnelles Wachstum. Ziel: 3:1+."},
+      {type:"Auswirkung",q:"Onboarding-Verbesserung erhöht Ø Laufzeit von 10 auf 15 Monate. Ø MRR €40. Wie ändert sich LTV?",sc:"Ø MRR: €40 | Vorher: 10 Mo | Nachher: 15 Mo",opts:["€400 → €500 (+25%)","€400 → €600 (+50%)","€400 → €550 (+37%)","Bleibt gleich"],c:1,fb:"Richtig. 40×10=€400 → 40×15=€600. +50% LTV durch bessere Retention. Direkter Business-Impact von gutem Onboarding."},
+      {type:"Argument",q:"Welches Argument nutzt LTV:CAC am stärksten?",opts:["Neues Design ist ansprechender","Durch Onboarding-Verbesserung steigt Activation Rate — LTV:CAC Ratio verbessert sich von 2,1 auf 3,0","Design reduziert kognitive Last","User finden Interface intuitiver"],c:1,fb:"Genau. Design-Entscheidung → Metrik → Business-Ratio. Das ist Stakeholder-Sprache. Ästhetik-Argumente sind richtig aber überzeugen keine Budgetentscheider."}
+    ]
+  },
+  {
+    ch:"Soft Metrics",id:"nps",
+    title:"NPS, CSAT &amp; Feature Adoption",
+    sub:"Weiche Metriken die du in harte übersetzen kannst.",
+    body:()=>`
+      <div class="section"><div style="display:grid;gap:12px">${[["NPS","Net Promoter Score","Weiterempfehlungswahrscheinlichkeit 0–10. Promotoren (9-10), Passive (7-8), Detraktoren (0-6).","NPS = % Promotoren − % Detraktoren","blue"],["CSAT","Customer Satisfaction Score","Direkte Zufriedenheitsmessung nach einer Interaktion.","CSAT = (Zufriedene / Gesamt) × 100","green"]].map(([n,f,d,formula,c])=>`<div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">${n}</div><div class="metric-full-name">${f}</div></div><span class="metric-badge badge-${c}">Soft</span></div><div class="metric-desc">${d}</div><div class="formula-block"><div class="formula-label">Formel</div><div class="formula-text">${formula}</div></div></div>`).join('')}</div></div>
+      <div class="section"><div class="section-title">NPS in Business Impact übersetzen</div><div class="callout callout-info"><strong>Datenpunkt:</strong> Unternehmen mit NPS 50+ haben 2–3× niedrigere Churn Rates als unter 20. Ein 10-Punkte NPS-Anstieg ≈ 2–4% Churn-Reduktion.</div></div>
+      <div class="section"><div class="section-title">Feature Adoption Rate</div><div class="metric-card"><div class="metric-card-header"><div><div class="metric-name">Feature Adoption Rate</div><div class="metric-full-name">Wie viele User nutzen ein Feature?</div></div><span class="metric-badge badge-amber">Engagement</span></div><div class="metric-desc">Prozentsatz der aktiven User die ein Feature nutzen. Niedrige Adoption = Discovery-Problem, nicht unbedingt schlechtes Feature.</div><div class="formula-block"><div class="formula-label">Formel</div><div class="formula-text">Feature Adoption = (Feature-User / aktive User) × 100</div></div><div class="design-link"><div class="design-link-label">Design-Hebel</div>Wissen User dass das Feature existiert? Empty States, Tooltips, Spotlight-Animationen bei Release.</div></div></div>`,
+    tests:[
+      {type:"Rechnung",q:"120 Befragte. 48 Promotoren, 36 Passive, 36 Detraktoren. NPS?",sc:"Promotoren (9-10): 48 | Passive (7-8): 36 | Detraktoren (0-6): 36",opts:["10","20","8","0"],c:0,fb:"Richtig. % Promo = 40%, % Detrak = 30%. NPS = 40−30 = 10. Leicht positiv, ausbaufähig. SaaS Benchmark: 30+ ist solide."},
+      {type:"Begriff",q:"Was ist der Unterschied zwischen NPS und CSAT?",opts:["NPS allgemeiner als CSAT","NPS misst Loyalität/Weiterempfehlung (langfristig), CSAT misst Zufriedenheit nach konkreter Interaktion (kurzfristig)","CSAT genauer als NPS","Kein relevanter Unterschied"],c:1,fb:"Genau. NPS: 'Würdest du uns empfehlen?' CSAT: 'Wie zufrieden warst du mit X?' Beide haben Platz, decken Verschiedenes ab."},
+      {type:"Analyse",q:"Feature Adoption eines Export-Features: 6% nach 2 Monaten. Was zuerst?",opts:["Bug suchen","Ob User das Feature sehen können — Platzierung, Empty State, Release Communication","Feature-Qualität prüfen","Zielgruppen-Fit hinterfragen"],c:1,fb:"Richtig. 6% kann heißen: Feature ist schlecht — oder User finden es nie. Erst Discovery prüfen: Navigation, Empty State, Release-Kommunikation. Dann Feature-Qualität."},
+      {type:"Auswirkung",q:"NPS steigt von 15 auf 45. Wahrscheinlichste Business-Konsequenz?",opts:["Mehr Feature Requests","Niedrigere Churn Rate und mehr organische Weiterempfehlungen","Höherer ARPU","Mehr Landing Page Traffic"],c:1,fb:"Richtig. NPS-Anstieg → niedrigerer Churn (Promotoren kündigen selten) + mehr Word-of-Mouth-Wachstum. Promotoren sind auch offener für Upsells → Expansion MRR."},
+      {type:"Rechnung",q:"500 aktive User. 75 nutzen das Analytics-Feature. Adoption Rate, und was tust du?",sc:"Aktive User: 500 | Feature-Nutzer: 75",opts:["15% — okay, nichts tun","15% — Discovery-Problem, Feature sichtbarer machen","15% — Feature entfernen","15% — nur E-Mail an Bestandskunden"],c:1,fb:"Richtig. 75/500×100 = 15%. Niedrig. Nächste Schritte: Tooltip beim ersten Login, Empty State der das Feature bewirbt, In-app Banner. 15%→40% ist realistisch durch bessere Discovery."}
+    ]
+  },
+  {
+    ch:"Zusammenfassung",id:"summary",
+    title:"Cheat Sheet &amp; Argument-Templates",
+    sub:"Alles auf einen Blick.",
+    body:()=>`
+      <div class="section"><div class="section-title">Alle Formeln</div><div class="cheatsheet-grid">${[["CR","Conversion Rate","Conversions/Besucher×100"],["AR","Activation Rate","Aktiviert/Registriert×100"],["TTV","Time-to-Value","Ø Zeit Signup→Key Action"],["RR","Retention Rate","(End−Neu)/Start×100"],["ChR","Churn Rate","Verloren/Start×100"],["MRR","Monthly Recurring Rev.","Σ Subs×Preis"],["LTV","Lifetime Value","Ø MRR/Churn Rate"],["CAC","Acquisition Cost","Ausgaben/neue Kunden"],["LTV:CAC","Health Ratio","LTV/CAC (Ziel 3:1+)"],["NPS","Net Promoter Score","% Promo − % Detrak"],["FAR","Feature Adoption","Feature-User/aktive×100"],["CSAT","Satisfaction","Zufrieden/Gesamt×100"]].map(([a,n,f])=>`<div class="cs-item"><div class="cs-abbr">${a}</div><div class="cs-name">${n}</div><div class="cs-formula">${f}</div></div>`).join('')}</div></div>
+      <div class="section"><div class="section-title">Argument-Templates</div><div style="display:grid;gap:8px">${[["Onboarding","Wenn wir Schritt X vereinfachen, sinkt TTV von A auf B. Bei C% Activation Rate und D Signups/Mo = E mehr aktivierte User mit Ø LTV €F."],["Feature-Discovery","Nur X% nutzen [Feature]. Navigation + Empty State Redesign → Y%. Bei Z aktiven Usern sind das N mehr Feature-User → Expansion MRR."],["Churn-Reduktion","User die [Friction] erleben haben X% höhere Churn Rate. Bei MRR €Y kostet das €Z/Mo in Churned Revenue. Das Redesign adressiert direkt diese Friction."]].map(([t,c])=>`<div style="background:var(--bg-3);border-radius:var(--r-lg);padding:16px 24px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-weight:700">${t}</div><div style="font-size:13px;color:var(--text-2);line-height:1.8;font-style:italic">"${c}"</div></div>`).join('')}</div></div>`,
+    tests:[
+      {type:"Synthese",q:"Du präsentierst ein Onboarding-Redesign. Welches Argument überzeugt am stärksten?",opts:["Design sieht professioneller aus","Redesign erhöht Activation Rate von 24% auf ~35% — bei 500 Signups/Mo = 55 mehr aktivierte User, bei Ø LTV €300 = €16.500 mehr potenziellem Revenue/Mo","Usertests zeigen bessere Usability","Reduziert kognitive Last"],c:1,fb:"Richtig. Nur das zweite Argument: Metrik → Zahl → Revenue. Das ist Stakeholder-Sprache."},
+      {type:"Synthese",q:"Churn: 8%/Mo. Ø MRR €35. LTV und Einordnung?",sc:"Churn: 8%/Mo | Ø MRR: €35",opts:["LTV ≈ €437 — eher Marketing-Problem","LTV ≈ €437 — 8% Churn kritisch, UX-Friction oder fehlendes Habit-Design","LTV ≈ €350 — akzeptabel","LTV ≈ €525 — kein Handlungsbedarf"],c:1,fb:"Richtig. LTV = 35/0,08 = 437,50 €. Und 8%/Mo = ~64% jährlicher Churn. Habit-Loop fehlt, Empty States helfen nicht, Wert wird nicht wiederholt kommuniziert."},
+      {type:"Synthese",q:"NPS = 8. Feature Adoption Core-Feature = 12%. Was ist dringender?",opts:["NPS kritischer — Zufriedenheit verbessern","Feature Adoption kritischer — 12% heißt User nutzen das Kernprodukt kaum","Gleich wichtig","Keines problematisch"],c:1,fb:"Richtig. 12% Feature Adoption ist die Ursache für den niedrigen NPS. User finden das Feature nicht → kein Wert → kein NPS. Discovery-Fix → Adoption → NPS."},
+      {type:"Synthese",q:"Welche Kombination zeigt ein gesundes SaaS?",opts:["Hohe CR, niedriger LTV, hoher Churn","Niedrige CR, hoher LTV, niedrige Churn, LTV:CAC > 3","Hoher MRR aber NPS unter 0","Niedrige TTV, gute Day-1 aber 15% monatlicher Churn"],c:1,fb:"Richtig. Niedrige CR ist lösbar. Hoher LTV + niedrige Churn + LTV:CAC 3:1+ = User bleiben, Wert wird erzeugt, Wachstum kapitaleffizient."},
+      {type:"Synthese",q:"Du argumentierst für ein Empty State Redesign. Welche zwei Metriken nennst du direkt?",opts:["Ästhetik-Score und Heuristics","Activation Rate und Time-to-Value — beide direkt durch bessere Empty States verbessert","NPS und CSAT","Nur CAC"],c:1,fb:"Richtig. Empty States sind Onboarding-Momente. Kein Wert gezeigt → längere TTV → niedrigere Activation Rate. Plus: bessere Activation → niedrigerer effektiver CAC."}
+    ]
+  }
+];
+
+let cur = 0;
+const done = new Set();
+const tState = {};
+
+function initState(idx){
+  if(!tState[idx]) tState[idx]={q:0,ans:[],finished:false};
+}
+
+function buildNav(){
+  const nav=document.getElementById('sidebar-nav');
+  let last='',html='';
+  L.forEach((l,i)=>{
+    if(l.ch!==last){
+      if(last) html+='</div>';
+      html+=`<div class="chapter-group"><div class="chapter-label">${l.ch}</div>`;
+      last=l.ch;
+    }
+    const isDone=done.has(i),isActive=i===cur;
+    html+=`<div class="nav-item ${isActive?'active':''} ${isDone?'done':''}" onclick="go(${i})"><div class="nav-dot ${isActive?'active-dot':''}"></div><div class="nav-text">${l.title}</div></div>`;
+  });
+  html+='</div>';
+  nav.innerHTML=html;
+  const pct=Math.round(done.size/L.length*100);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('progress-label').textContent=`${done.size} / ${L.length} abgeschlossen`;
+}
+
+function dots(idx){
+  const s=tState[idx]||{q:0,ans:[],finished:false};
+  return L[idx].tests.map((_,i)=>{
+    let c='tdot';
+    if(i<s.ans.length) c+=' '+(s.ans[i]?'t-correct':'t-wrong');
+    else if(i===s.q&&!s.finished) c+=' current';
+    return `<div class="${c}"></div>`;
+  }).join('');
+}
+
+function renderTestBlock(idx){
+  initState(idx);
+  const s=tState[idx];
+  const tests=L[idx].tests;
+  const total=tests.length;
+
+  let body='';
+  if(s.finished){
+    const score=s.ans.filter(Boolean).length;
+    const pct=Math.round(score/total*100);
+    const passed=pct>=80;
+    const offset=Math.round(220-(220*pct/100));
+    const col=pct>=80?'#1E6B4F':pct>=60?'#7C5800':'#BA1A1A';
+    if(passed) done.add(idx);
+    buildNav();
+    const hl=passed?['Sitzt.','Stark.','Ausgezeichnet.'][idx%3]:['Nochmal.','Fast.','Noch nicht.'][idx%3];
+    body=`<div class="test-result show">
+      <div class="result-ring">
+        <svg width="88" height="88" viewBox="0 0 88 88"><circle class="ring-bg" cx="44" cy="44" r="35"/><circle class="ring-fg" cx="44" cy="44" r="35" stroke="${col}" style="stroke-dashoffset:${offset}"/></svg>
+        <div class="ring-num">${pct}%</div>
+      </div>
+      <div class="result-headline">${hl}</div>
+      <div class="result-sub">${score}/${total} richtig · ${pct}% · ${passed?'Lektion abgeschlossen':'80% zum Bestehen nötig'}</div>
+      <div class="result-breakdown">${tests.map((t,i)=>{const ok=s.ans[i];return `<div class="rb-item"><div class="rb-icon ${ok?'rb-ok':'rb-no'}">${ok?'✓':'✗'}</div><div class="rb-text"><b>F${i+1}: ${t.type}</b>${ok?t.opts[t.c]:'Richtig: '+t.opts[t.c]}</div></div>`;}).join('')}</div>
+      <div class="result-actions">
+        ${!passed?`<button class="btn btn-ghost btn-sm" onclick="retryTest(${idx})">Wiederholen</button>`:''}
+        ${idx<L.length-1?`<button class="btn btn-primary btn-sm" onclick="go(${idx+1})">Nächste Lektion →</button>`:`<span style="font-size:13px;color:var(--accent);font-style:italic">Alle Lektionen abgeschlossen 🎓</span>`}
+      </div>
+    </div>`;
+  } else {
+    const t=tests[s.q];
+    const sc=t.sc?`<div class="tq-scenario">${t.sc}</div>`:'';
+    body=`<div class="tq-type">${t.type}</div>
+    <div class="tq-number">Frage ${s.q+1} von ${total}</div>
+    <div class="tq-question">${t.q}</div>${sc}
+    <div class="tq-options">${t.opts.map((o,i)=>`<button class="tq-option" id="topt-${i}" onclick="answerQ(${idx},${s.q},${i})">${o}</button>`).join('')}</div>
+    <div class="tq-feedback" id="tq-fb"></div>
+    <div class="tq-nav"><button class="tq-next" id="tq-next" onclick="nextQ(${idx})">${s.q===total-1?'Auswertung →':'Nächste Frage →'}</button></div>`;
+  }
+
+  return `<div class="test-block" id="test-block">
+    <div class="test-header">
+      <div class="test-header-left">
+        <div class="test-icon"><span class="material-symbols-outlined">quiz</span></div>
+        <div><div class="test-title">Kapitel-Test</div><div class="test-meta">${total} Fragen · 80% zum Bestehen</div></div>
+      </div>
+      <div class="test-progress-dots">${dots(idx)}</div>
+    </div>
+    <div class="test-body">${body}</div>
+  </div>`;
+}
+
+function answerQ(lessonIdx, qIdx, sel){
+  const s=tState[lessonIdx];
+  if(s.ans.length>qIdx) return;
+  const t=L[lessonIdx].tests[qIdx];
+  const ok=sel===t.c;
+  s.ans.push(ok);
+  document.querySelectorAll('.tq-option').forEach((b,i)=>{
+    b.classList.add('disabled');
+    if(i===t.c) b.classList.add('t-correct');
+    else if(i===sel&&!ok) b.classList.add('t-wrong');
+  });
+  const fb=document.getElementById('tq-fb');
+  if(fb){fb.textContent=(ok?'✓ ':'✗ ')+t.fb;fb.classList.add('show',ok?'fb-ok':'fb-no')}
+  const nx=document.getElementById('tq-next');
+  if(nx) nx.classList.add('show');
+  const dotEls=document.querySelectorAll('.tdot');
+  if(dotEls[qIdx]){dotEls[qIdx].className='tdot '+(ok?'t-correct':'t-wrong')}
+}
+
+function nextQ(lessonIdx){
+  const s=tState[lessonIdx];
+  const total=L[lessonIdx].tests.length;
+  if(s.q+1>=total){s.finished=true;}
+  else{s.q++;}
+  refreshTestBlock(lessonIdx);
+}
+
+function retryTest(lessonIdx){
+  tState[lessonIdx]={q:0,ans:[],finished:false};
+  done.delete(lessonIdx);
+  refreshTestBlock(lessonIdx);
+  buildNav();
+}
+
+function refreshTestBlock(lessonIdx){
+  const el=document.getElementById('test-block');
+  if(el){
+    const tmp=document.createElement('div');
+    tmp.innerHTML=renderTestBlock(lessonIdx);
+    el.replaceWith(tmp.firstChild);
+  }
+}
+
+function renderLesson(idx){
+  const l=L[idx];
+  document.getElementById('main-content').innerHTML=`<div class="lesson-content">
+    <div class="chapter-tag">${l.ch}</div>
+    <h1 class="lesson-title">${l.title}</h1>
+    <p class="lesson-subtitle">${l.sub}</p>
+    ${l.body()}
+    ${renderTestBlock(idx)}
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="go(${idx-1})" ${idx===0?'disabled':''}>← Zurück</button>
+      <span class="lesson-counter">${idx+1} / ${L.length}</span>
+      <button class="btn btn-primary" onclick="go(${idx+1})" ${idx===L.length-1?'disabled':''}>Weiter →</button>
+    </div>
+  </div>`;
+  window.scrollTo(0,0);
+}
+
+function go(idx){
+  if(idx<0||idx>=L.length) return;
+  cur=idx;
+  renderLesson(idx);
+  buildNav();
+}
+
+go(0);
+</script>
+</body>
+</html>
